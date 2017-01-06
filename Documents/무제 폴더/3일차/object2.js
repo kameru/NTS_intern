@@ -30,9 +30,8 @@ function isContent(myNewsObj, id) {
 
 function checkObject(myNewsObj, correct) {
   function checkContent(element) {
+    var correctLen = correct.length;
     var correctKey = Object.keys(correct);
-    var correctLen = correctKey.length;
-
     var keyList = Object.keys(element);
 
     if (keyList.length != correctLen) {
@@ -46,7 +45,6 @@ function checkObject(myNewsObj, correct) {
         return false;
       }
     }
-    return true;
   }
 
   return myNewsObj.every(checkContent);
