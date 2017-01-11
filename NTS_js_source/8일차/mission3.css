@@ -1,0 +1,60 @@
+p {
+    margin:0;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: wrap row;
+}
+
+.wrapper * {
+  flex: 1 100%;
+  text-align: center;
+}
+
+.header, .footer {
+  background: #444;
+  color:white;
+}
+
+.left_side {
+  background: #DDD;
+}
+
+.right_side {
+  background: #777;
+}
+
+.main {
+  background: #AAA;
+}
+
+@media (min-width: 640px) {
+
+  /*.content {
+    display:flex;
+    flex-flow: wrap row;
+  }*/
+
+  .left_side {
+    order: 1;
+    flex: 1 auto;
+
+  }
+
+  .main {
+    order: 2;
+    flex: 3 0px;
+  }
+
+  .right_side {
+    order: 3;
+    flex: 1 auto;
+  }
+
+  .footer {
+    order: 4;
+  }
+
+
+}

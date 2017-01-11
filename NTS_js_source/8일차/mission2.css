@@ -1,0 +1,21 @@
+body{
+  height: 200px;
+  border: solid 1px #000;
+  column-count:3;
+}
+
+.first {
+  height: 100%;
+  width: 69%;
+  margin-left: 4%;
+  background: #CCC;
+  display: inline-block;;
+}
+
+.second {
+  height: 100%;
+  width: 20%;
+  margin: 0 4% 0 2%;
+  background: #AAA;
+  display: inline-block;;
+}
