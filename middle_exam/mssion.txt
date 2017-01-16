@@ -1,0 +1,21 @@
+검색창 개발.
+1. text 에 글자가 입력되기 시작하거나, 내용이 채워지면 clear-query 클래스를 가진 영역이 노출됩니댜. (display속성을 inline-block으로 변경)
+
+2. java 라는 글자가 하나씩 입력될 때마다 다른파일인 /data/x.json 파일을 AJAX로 가져와서 auto-complete-wrap 클래스를 가진 영역노드로 내용을 추가합니다. 
+   'java'라는 글자를 다 쓸때까지 총 4번의 Ajax요청이 진행되야 함.
+
+3. 한번 받은 ajax요청은 localstorage에 저장해서 사용합니다.
+
+
+# 로컬스터리지에 데이터가 존재한 뒤에는 이렇게 동작되야 함.
+
+@.검색 버튼을 누르면 검색어를 localstorage에 저장합니다.
+
+4. input 영역을 클릭하면 recent-word-wrap 클래스를 가진 레이어가 노출되고, localstorage에 저장된 정보가 있는지 확인한후에, 
+있다면 ul-wrap 클래스 하위에 적당한 html태그를 추가 해서 화면에 노출합니다.
+
+5. 검색창과 'recent-word-wrap' 영역 이외의 영역을 마우스로 클릭하면 recent-word-wrap 레이어가 닫힙니다.
+
+6. recent-word-wrap 리스트 중 한가지를 마우스로 클릭하면 recent-word-wrap 레이어는 닫히고, input 영역에 그 텍스트가 추가됩니다.
+
+7. 마지막으로 변수, 함수명을 컨벤션에 어울리게 지어보고, 코드의 중복을 없앱니다.
