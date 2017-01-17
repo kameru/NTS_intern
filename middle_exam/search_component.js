@@ -10,14 +10,20 @@ var listType = {
   recent: "recent-word"
 }
 
-var searchBar = {
+var baseUrl = "http://localhost:8000/Documents/intern/middle_exam/data/";
+
+function SearchBar() {
+  this.init();
+}
+
+SearchBar.prototype = {
   init: function() {
     this.textArea = document.querySelector(className.searchField);
     this.clearBtn = document.querySelector(className.clear);
     this.searchBtn = document.querySelector(className.search);
     this.autoList = document.querySelector("." + listType.auto + "-wrap");
     this.recentList = document.querySelector("." + listType.recent + "-wrap");
-    this.result = "";
+    this.result;
     this.setEvents();
   },
 
@@ -26,6 +32,8 @@ var searchBar = {
     this.searchBtn.addEventListener("click", this.saveEvent.bind(this));
     this.textArea.addEventListener("input", this.input.bind(this));
     this.textArea.addEventListener("click", this.showRecentEvent.bind(this));
+    document.addEventListener("click", this.detectOutsideClickEvent.bind(this));
+
   },
 
   show: function(ele) {
@@ -59,8 +67,8 @@ var searchBar = {
     } else {
       this.hide(this.recentList);
       this.show(this.clearBtn);
-      this.setAutoKeyword();
       this.show(this.autoList);
+      this.setAutoKeyword();
     }
   },
 
@@ -70,7 +78,6 @@ var searchBar = {
 
     if (this.result === null) {
       var oReq = new XMLHttpRequest;
-      var baseUrl = "http://localhost:8000/Documents/intern/middle_exam/data/";
 
       oReq.addEventListener("load", (function() {
         this.result = JSON.parse(oReq.responseText)[1];
@@ -92,17 +99,20 @@ var searchBar = {
       savedData = [];
     }
 
-    if (!savedData.includes(newKeyword) && newKeyword !== "")
-    savedData.push(newKeyword);
+    if (!savedData.includes(newKeyword) && newKeyword !== "") {
+      savedData.push(newKeyword);
+    }
 
     localStorage.setItem("recent", JSON.stringify(savedData));
   },
 
   showRecentEvent: function() {
     if (this.textArea.value === "") {
+      this.show(this.recentList);
+      this.hide(this.autoList);
       this.result = JSON.parse(localStorage.getItem("recent"));
+
       if (this.result !== null) {
-        this.show(this.recentList);
         this.print(this.recentList);
       }
     }
@@ -112,14 +122,13 @@ var searchBar = {
     this.hide(this.recentList);
     this.hide(this.autoList);
     this.textArea.value = evt.target.innerText;
+  },
+
+  detectOutsideClickEvent: function(evt) {
+    if(evt.target !== this.textArea && !this.recentList.contains(evt.target)) {
+      this.hide(this.recentList);
+    }
   }
 }
 
-searchBar.init();
-document.addEventListener("click", getClickedElement.bind(searchBar), false);
-
-function getClickedElement(evt) {
-  if(evt.target !== this.textArea && evt.target !== this.recentList) {
-    this.hide(this.recentList);
-  }
-}
+var searchBar = new SearchBar();
