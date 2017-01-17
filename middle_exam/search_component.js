@@ -29,10 +29,10 @@ SearchBar.prototype = {
 
   setEvents: function() {
     this.clearBtn.addEventListener("click", this.clear.bind(this));
-    this.searchBtn.addEventListener("click", this.saveEvent.bind(this));
+    this.searchBtn.addEventListener("click", this.saveKeyword.bind(this));
     this.textArea.addEventListener("input", this.input.bind(this));
-    this.textArea.addEventListener("click", this.showRecentEvent.bind(this));
-    document.addEventListener("click", this.detectOutsideClickEvent.bind(this));
+    this.textArea.addEventListener("click", this.showRecent.bind(this));
+    document.addEventListener("click", this.detectOutsideClick.bind(this));
 
   },
 
@@ -58,7 +58,7 @@ SearchBar.prototype = {
         listHTML += "<li>" + this.result[i] + "</li>";
     }
     ulList.innerHTML = listHTML;
-    ulList.addEventListener("click", this.setValueEvent.bind(this), false);
+    ulList.addEventListener("click", this.setTextValue.bind(this), false);
   },
 
   input: function() {
@@ -91,7 +91,7 @@ SearchBar.prototype = {
     }
   },
 
-  saveEvent: function() {
+  saveKeyword: function() {
     var savedData = JSON.parse(localStorage.getItem("recent"));
     var newKeyword = this.textArea.value;
 
@@ -106,7 +106,7 @@ SearchBar.prototype = {
     localStorage.setItem("recent", JSON.stringify(savedData));
   },
 
-  showRecentEvent: function() {
+  showRecent: function() {
     if (this.textArea.value === "") {
       this.show(this.recentList);
       this.hide(this.autoList);
@@ -118,13 +118,13 @@ SearchBar.prototype = {
     }
   },
 
-  setValueEvent: function(evt) {
+  setTextValue: function(evt) {
     this.hide(this.recentList);
     this.hide(this.autoList);
     this.textArea.value = evt.target.innerText;
   },
 
-  detectOutsideClickEvent: function(evt) {
+  detectOutsideClick: function(evt) {
     if(evt.target !== this.textArea && !this.recentList.contains(evt.target)) {
       this.hide(this.recentList);
     }
